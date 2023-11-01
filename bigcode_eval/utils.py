@@ -266,6 +266,7 @@ def complete_code(
                         num_return_sequences=batch_size,
                         decoder_start_token_id=tokenizer.pad_token_id,
                         eos_token_id=tokenizer.eos_token_id,
+                        pad_token_id=tokenizer.eos_token_id
                         **gen_kwargs,
                     )
                 else:
@@ -275,6 +276,7 @@ def complete_code(
                         num_return_sequences=batch_size,
                         decoder_start_token_id=tokenizer.pad_token_id,
                         eos_token_id=tokenizer.eos_token_id,
+                        pad_token_id=tokenizer.eos_token_id
                         **gen_kwargs,
                     )
             else:
@@ -283,12 +285,14 @@ def complete_code(
                     generated_tokens = accelerator.unwrap_model(model).generate(
                         input_ids=inputs,
                         num_return_sequences=batch_size,
+                        pad_token_id=tokenizer.eos_token_id,
                         **gen_kwargs,
                     )
                 else:
                     generated_tokens = model.generate(
                         input_ids=inputs,
                         num_return_sequences=batch_size,
+                        pad_token_id=tokenizer.eos_token_id,
                         **gen_kwargs,
                     )
             # each task is generated batch_size times
